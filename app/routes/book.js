@@ -32,7 +32,7 @@ function postBook(req,res){
 
 //GET /book/:id route to retrieve a book given its id .
 function getBook(req,res){
-    Book.findbyId(req.params.id,(err,book)=>{
+    Book.findById(req.params.id,(err,book)=>{
         if(err) res.send(err);
         // if no errors , send it back to the client 
         res.json(book);
@@ -50,8 +50,10 @@ function deleteBook (req,res){
 // PUT /book:id to update a book diven its id 
 
 function updateBook(req,res){
-    Book.findbyId({_id:req.params.id},(err,book)=>{
+    Book.findById({_id:req.params.id},(err,book)=>{
         if(err) res.send(err);
+        console.log(book)
+        console.log(req.body)
         Object.assign(book,req.body).save((err,book)=>{
             if(err) res.send(err);
             res.json({message:"Book updated!",book});
