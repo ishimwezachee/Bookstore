@@ -35,7 +35,7 @@ function getBook(req,res){
     Book.findById(req.params.id,(err,book)=>{
         if(err) res.send(err);
         // if no errors , send it back to the client 
-        res.json(book);
+        res.status(200).json(book);
     })
 }
 
@@ -52,8 +52,6 @@ function deleteBook (req,res){
 function updateBook(req,res){
     Book.findById({_id:req.params.id},(err,book)=>{
         if(err) res.send(err);
-        console.log(book)
-        console.log(req.body)
         Object.assign(book,req.body).save((err,book)=>{
             if(err) res.send(err);
             res.json({message:"Book updated!",book});

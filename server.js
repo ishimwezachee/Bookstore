@@ -3,7 +3,7 @@ let app = express();
 let mongoose = require("mongoose");
 let morgan = require("morgan");
 let bodyPaser = require("body-parser");
-let port = 8080;
+let port = 5500;
 let book = require("./app/routes/book");
 let config = require("config") 
 const db = config.get("DBHost");
@@ -15,10 +15,7 @@ app.use(bodyPaser.urlencoded({extended:true}));
 app.use(bodyPaser.text());
 app.use(bodyPaser.json({type:"application/json"}));
 app.use(bodyPaser.json({text:"application/json"}));
-if(config.util.getEnv('NODE_ENV') !== 'test') {
-    //use morgan to log at command line
-    app.use(morgan('combined')); //'combined' outputs the Apache style LOGs
-}
+
 
 app.get('/',(req,res)=> res.json({message:"Welcome to our Bookstore!"}));
 
@@ -41,7 +38,7 @@ const connectDB = async ()=>{
     
      try {
         await mongoose.connect(db,options)
-        console.log("the databse connected successfuly")
+        console.log("the database connected successfuly")
      } catch (error) {
      console.log(error);
      process.exist(1);    
